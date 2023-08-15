@@ -425,95 +425,77 @@ function App() {
             </s.TextDescription>
             <s.SpacerSmall />
 
-            {Number(totalSupply) >= CONFIG.MAX_SUPPLY ? (
-              <>
-                <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  The sale has ended.
-                </s.TextTitle>
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  You can still find {CONFIG.NFT_NAME} on
-                </s.TextDescription>
-                <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
-                  {CONFIG.MARKETPLACE}
-                </StyledLink>
-              </>
-            ) : (
-              <>
-                <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  1 NFT costs {CONFIG.DISPLAY_COST} {CONFIG.NETWORK.SYMBOL}.
-                </s.TextTitle>
-                <s.SpacerXSmall />
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  Excluding gas fees.
-                </s.TextDescription>
-                <s.SpacerSmall />
+            <>
+              <s.TextTitle
+                style={{ textAlign: "center", color: "var(--accent-text)" }}
+              >
+                1 NFT costs {CONFIG.DISPLAY_COST} {CONFIG.NETWORK.SYMBOL}.
+              </s.TextTitle>
+              <s.SpacerXSmall />
+              <s.TextDescription
+                style={{ textAlign: "center", color: "var(--accent-text)" }}
+              >
+                Excluding gas fees.
+              </s.TextDescription>
+              <s.SpacerSmall />
 
-                <s.Container ai={"center"} jc={"center"}>
-                  <s.SpacerSmall />
-                  {!isWalletConnected && (
-                    <StyledButton
-                      onClick={(e) => {
-                        connectWallet();
-                      }}
-                    >
-                      CONNECT
-                    </StyledButton>
-                  )}
-                  {isWalletConnected && (
-                    <>
-                      <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                        <StyledRoundButton
-                          style={{ lineHeight: 0.4 }}
-                          disabled={claimingNft ? 1 : 0}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            decrementMintAmount();
-                          }}
-                        >
-                          -
-                        </StyledRoundButton>
-                        <s.SpacerMedium />
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          {mintAmount}
-                        </s.TextDescription>
-                        <s.SpacerMedium />
-                        <StyledRoundButton
-                          disabled={claimingNft ? 1 : 0}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            incrementMintAmount();
-                          }}
-                        >
-                          +
-                        </StyledRoundButton>
-                      </s.Container>
-                      <s.SpacerSmall />
-                      <StyledButton
+              <s.Container ai={"center"} jc={"center"}>
+                <s.SpacerSmall />
+                {!isWalletConnected && (
+                  <StyledButton
+                    onClick={(e) => {
+                      connectWallet();
+                    }}
+                  >
+                    CONNECT
+                  </StyledButton>
+                )}
+                {isWalletConnected && (
+                  <>
+                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                      <StyledRoundButton
+                        style={{ lineHeight: 0.4 }}
+                        disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
-                          claimNFTs();
+                          e.preventDefault();
+                          decrementMintAmount();
                         }}
                       >
-                        Mint
-                      </StyledButton>
-                    </>
-                  )}
-                </s.Container>
-              </>
-            )}
+                        -
+                      </StyledRoundButton>
+                      <s.SpacerMedium />
+                      <s.TextDescription
+                        style={{
+                          textAlign: "center",
+                          color: "var(--accent-text)",
+                        }}
+                      >
+                        {mintAmount}
+                      </s.TextDescription>
+                      <s.SpacerMedium />
+                      <StyledRoundButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          incrementMintAmount();
+                        }}
+                      >
+                        +
+                      </StyledRoundButton>
+                    </s.Container>
+                    <s.SpacerSmall />
+                    <StyledButton
+                      onClick={(e) => {
+                        claimNFTs();
+                      }}
+                    >
+                      Mint
+                    </StyledButton>
+                  </>
+                )}
+              </s.Container>
+            </>
+
             <s.SpacerMedium />
           </s.Container>
           <s.SpacerLarge />
