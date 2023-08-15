@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { connect } from "./redux/blockchain/blockchainActions";
-import { fetchData } from "./redux/data/dataActions";
+import React, { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import Web3 from "web3";
@@ -96,15 +95,15 @@ export const StyledLink = styled.a`
 `;
 
 function App() {
-  const dispatch = useDispatch();
-  const blockchain = useSelector((state) => state.blockchain);
-  const data = useSelector((state) => state.data);
-  const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  // const dispatch = useDispatch();
+  // const blockchain = useSelector((state) => state.blockchain);
+  // const data = useSelector((state) => state.data);
+  // const [claimingNft, setClaimingNft] = useState(false);
+  // const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
-  const [connectedAddress, setconnectedAddress] = useState("");
+  // const [connectedAddress, setconnectedAddress] = useState("");
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [totalSupply, settotalSupply] = useState();
+  //const [totalSupply, settotalSupply] = useState();
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
@@ -161,7 +160,7 @@ function App() {
         if (provider.isMetamask) {
           web3.eth.net.getId().then((result) => {
             console.log("Network id: " + result);
-            if (parseInt(result) != parseInt(chain_id)) {
+            if (parseInt(result) !== parseInt(chain_id)) {
               //result !== 1
               //alert("Wrong Network Selected. Select Goerli Test Network and Refresh Page");
               try {
@@ -184,7 +183,7 @@ function App() {
 
         let accounts = await web3.eth.getAccounts();
         console.log(accounts[0]);
-        setconnectedAddress(accounts[0]);
+        //setconnectedAddress(accounts[0]);
         setIsWalletConnected(true);
         await fetch_data();
         //handleClose();
@@ -256,15 +255,13 @@ function App() {
             maxFeePerGas: null,
           });
         console.log(estemated_Gas);
-        const result = await contract.methods
-          .preSalemint(mintValue.toString())
-          .send({
-            from: address,
-            value: price.toString(),
-            gas: estemated_Gas,
-            maxPriorityFeePerGas: null,
-            maxFeePerGas: null,
-          });
+        await contract.methods.preSalemint(mintValue.toString()).send({
+          from: address,
+          value: price.toString(),
+          gas: estemated_Gas,
+          maxPriorityFeePerGas: null,
+          maxFeePerGas: null,
+        });
         alert("Mint Successful.");
       } catch (e) {
         show_error_alert(e);
@@ -289,7 +286,7 @@ function App() {
       console.log("error: " + err);
       if (result != null) {
         console.log("Total Supply: " + result);
-        settotalSupply(result);
+        //settotalSupply(result);
       }
     });
     // contract.methods.maxSupply().call((err, result) => {
@@ -455,7 +452,7 @@ function App() {
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
                       <StyledRoundButton
                         style={{ lineHeight: 0.4 }}
-                        disabled={claimingNft ? 1 : 0}
+                        // disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
                           decrementMintAmount();
@@ -474,7 +471,7 @@ function App() {
                       </s.TextDescription>
                       <s.SpacerMedium />
                       <StyledRoundButton
-                        disabled={claimingNft ? 1 : 0}
+                        // disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
                           incrementMintAmount();
